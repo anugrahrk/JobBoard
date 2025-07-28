@@ -10,6 +10,8 @@ function Login() {
   const [fullname,setFullName]=useState("")
   const [userId,setuserId]=useState("")
   const navigate=useNavigate()
+  const apiUrl= import.meta.env.VITE_API_URL
+
 
   useEffect(()=>{
     const token=localStorage.getItem("token")
@@ -20,7 +22,7 @@ function Login() {
   },[])
  async function OnbuttonClick(){
   if (Login){
-    const login=await axios.post("http://localhost:3000/user/signin",{
+    const login=await axios.post(`${apiUrl}user/signin`,{
       email,
       password
     })
@@ -31,7 +33,7 @@ function Login() {
     }
   }
   else{
-    const signup=await axios.post("http://localhost:3000/user/signup",{
+    const signup=await axios.post(`${apiUrl}user/signup`,{
       email,
       password,
       fullname

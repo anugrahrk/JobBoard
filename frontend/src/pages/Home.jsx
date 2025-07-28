@@ -26,6 +26,7 @@ function Home() {
   const Options=["Applied","Rejected","Pending", "Selected"]
   const Boxref=useRef(null)
   const token=localStorage.getItem("token")
+  const apiUrl= import.meta.env.VITE_API_URL
   useEffect(()=>{
     const token=localStorage.getItem("token")
     if(!token){
@@ -46,7 +47,7 @@ function Home() {
 useEffect(() => {
   async function ReadJobs() {
     try {
-      const jobs = await axios.get("http://localhost:3000/jobs/", {
+      const jobs = await axios.get(`${apiUrl}jobs/`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -66,7 +67,7 @@ useEffect(()=>{
       setSearchJobs([])
       return
     }
-  const search=await axios.get(`http://localhost:3000/jobs/search?filter=${searchfilter}`,{
+  const search=await axios.get(`${apiUrl}jobs/search?filter=${searchfilter}`,{
     headers:{
       authorization:`Bearer ${token}`
     }
@@ -140,7 +141,7 @@ useEffect(()=>{
         <div className='w-full flex justify-center pt-5'>
         <button onClick={async()=>{
           if(App==="Add"){
-              const res=await axios.post("http://localhost:3000/jobs/add",{
+              const res=await axios.post(`${apiUrl}jobs/add`,{
                 company,
                 position,
                 status,
@@ -156,7 +157,7 @@ useEffect(()=>{
 
           }
           if(App==="Edit"){
-            const res=await axios.put(`http://localhost:3000/jobs/edit?JobId=${jobId}`,{
+            const res=await axios.put(`${apiUrl}jobs/edit?JobId=${jobId}`,{
                 company,
                 position,
                 status,

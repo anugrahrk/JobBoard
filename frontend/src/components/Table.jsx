@@ -26,6 +26,8 @@ function Table({data}) {
       const [status,setStatus]=useAtom(StatusData)
       const [jobId,setjobId]=useAtom(JOBID)
       const token=localStorage.getItem("token")
+    const apiUrl= import.meta.env.VITE_API_URL
+
   return (
     <div className=' w-auto md:w-300 absolute top-100 flex overflow-x-auto rounded-xl border border-gray-200 '>
         <table className=' w-auto md:w-full overflow-auto text-sm text-left text-gray-700   '>
@@ -67,7 +69,7 @@ function Table({data}) {
                                 }}>Edit</button>
                             <span>|</span>
                             <button onClick={async()=>{
-                                const res=await axios.delete(`http://localhost:3000/jobs/delete?JobId=${e._id}`,{
+                                const res=await axios.delete(`${apiUrl}jobs/delete?JobId=${e._id}`,{
                                     headers:{
                                         Authorization:`Bearer ${token}`
                                     }
