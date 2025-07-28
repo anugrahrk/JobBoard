@@ -32,7 +32,7 @@ JobBoard is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) applicati
 ## 📸 Screenshots
 
 
-![Dashboard](https://ibb.co/wrhkNLFs)
+![Dashboard](frontend/public/screenshot/JobBoard.png)
 
 ---
 
