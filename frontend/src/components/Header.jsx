@@ -22,13 +22,13 @@ function Header() {
           </div>
 
            </div>
-           {logout && <div className='absolute items-center flex justify-center top-10 right-5  rounded-lg shadow-lg w-20 h-15 border border-gray-100'>
+           {logout && <div className='absolute items-center flex justify-center top-10 right-5   rounded-lg shadow-lg w-20 h-15 border border-gray-100'>
             <p onClick={()=>{ 
               localStorage.removeItem("token")
               navigate("/login")
               setLogout(false)
             }
-            } className=' p-3 hover:bg-gray-100 hover:cursor-pointer w-fit h-fit  items-center flex justify-center text-red-500 '>Logout</p>
+            } className='w-full p-3  items-center flex justify-center hover:bg-gray-100 hover:cursor-pointer text-black hover:text-red-500 '>Logout</p>
            </div>}
     </div>
   )

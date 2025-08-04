@@ -10,6 +10,7 @@ function Login() {
   const [fullname,setFullName]=useState("")
   const [userId,setuserId]=useState("")
   const navigate=useNavigate()
+  const [loading,setLoading]=useState(false)
   const apiUrl= import.meta.env.VITE_API_URL
 
 
@@ -22,10 +23,12 @@ function Login() {
   },[])
  async function OnbuttonClick(){
   if (Login){
+    setLoading(true)
     const login=await axios.post(`${apiUrl}user/signin`,{
       email,
       password
     })
+    setLoading(false)
     navigate("/")
     if(login.data.token && login.data.userId){
       localStorage.setItem('token',login.data.token)
@@ -33,11 +36,13 @@ function Login() {
     }
   }
   else{
+    setLoading(true)
     const signup=await axios.post(`${apiUrl}user/signup`,{
       email,
       password,
       fullname
     })
+    setLoading(false)
     setLogin(true)
   }
  }
@@ -58,7 +63,17 @@ function Login() {
                 <input className='ml-8 flex justify-center border border-gray-400 text-gray-500 w-70 h-10 p-2 md:ml-15 mb-5 rounded-lg' onChange={(e)=>setFullName(e.target.value)} value={fullname} type="text" name="fullname" placeholder='Full Name' id="" />
                 
                 }
-                  <button onClick={OnbuttonClick} className='ml-35 md:ml-40 mt-10 w-20 h-10 flex justify-center items-center p-3 text bg-gray-900 text-white rounded-lg hover:cursor-pointer hover:bg-gray-600'>{Login?"Login":"Signup"}</button>
+                  <button onClick={OnbuttonClick} className='ml-35 md:ml-40 mt-10 w-30 h-10 flex justify-center items-center p-3 text bg-gray-900 text-white rounded-lg hover:cursor-pointer hover:bg-gray-600'>{
+          loading?
+             (<span className="flex items-center gap-2">
+                <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="4" fill="none" className="opacity-25" />
+                  <path d="M4 12a8 8 0 018-8v8z" fill="white" className="opacity-75" />
+                </svg>
+                Loading...
+              </span>)
+          :(Login?"Login":"Signup")  
+        }</button>
 
                   <div className='flex justify-center pt-10 pb-5'>{Login?'Create new account':'Already have an account'} <div onClick={()=>setLogin(!Login)} className=' pl-2 text-blue-600 underline cursor-pointer'>{Login? "Signup":"Login"}</div> </div>
 
